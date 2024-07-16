@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { jwtDecode } from "jwt-decode";
-import useAxiosSecure from "../hooks/useAxiosSecure";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(null);
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const axiosPublic = useAxiosPublic();
-  // const axiosSecure = useAxiosSecure();
-
 
   useEffect(() => {
-    setLoading(true);
     const token = localStorage.getItem("Token");
-    
-    if(!token){
-      <Navigate to='/Login'></Navigate>;
-      setLoading(false);
-      
-    }
-    if (token) {
+    if (!token) {
+      LogOut();
+    } else {
       try {
-        setLoading(true);
         const decoded = jwtDecode(token);
         getUser(decoded.emailOrPhone);
       } catch (error) {
@@ -35,7 +26,6 @@ const AuthProvider = ({ children }) => {
 
   const getUser = async (emailOrPhone) => {
     try {
-      setLoading(true);
       const { data } = await axiosPublic.get(`/user/${emailOrPhone}`);
       setUser(data);
       setLoading(false);
@@ -44,11 +34,19 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const LogOut = async () => {
+    <Navigate to="/Login"></Navigate>;
+    setUser(null);
+    setLoading(false);
+  };
+
   const shareTools = {
     setUser,
+    LogOut,
     user,
     loading,
   };
+
   return (
     <AuthContext.Provider value={shareTools}>{children}</AuthContext.Provider>
   );

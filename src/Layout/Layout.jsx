@@ -27,7 +27,9 @@ const Dashboard = () => {
               )}
             </button>
           </div>
+          <main className="px-2">
           <Outlet></Outlet>
+          </main>
         </div>
       </div>
     </div>

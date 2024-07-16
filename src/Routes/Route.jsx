@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../components/Home/Home";
 import Layout from "../Layout/Layout";
 import Login from "../components/Pages/Login/Login";
 import Register from "../components/Pages/Register/Register";
 import PrivateRoute from '../Routes/PrivateRoute'
+import Overview from "../components/Overview/Overview";
+import Transactions from "../components/Pages/Transactions/Transactions";
 
 const route = createBrowserRouter([
     {
@@ -12,7 +13,15 @@ const route = createBrowserRouter([
         children:[
         {
             path:'/',
-            element:<PrivateRoute><Home></Home></PrivateRoute>
+            element:<PrivateRoute><Overview></Overview></PrivateRoute>
+        },
+        {
+            path:'/Transactions',
+            element:<PrivateRoute><Transactions></Transactions></PrivateRoute>
+        },
+        {
+            path:'/Transactions',
+            element:<PrivateRoute><Transactions></Transactions></PrivateRoute>
         },
         {
             path:'/Login',

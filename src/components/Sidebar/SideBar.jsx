@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import { BiLogOutCircle } from "react-icons/bi";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import Menu from "../Share/Menu";
 
 const SideBar = ({ isOpen }) => {
   const navigate = useNavigate();
-  
+   
   const handleLogOut = () => {
     localStorage.removeItem("Token");
     navigate("/Login");
@@ -28,18 +29,9 @@ const SideBar = ({ isOpen }) => {
         </div>
         <div className="divider divider-accent">OR</div>
         <div className="menu">
-          <ul className="ul space-y-3">
-            {/* todo manu */}
-            <li>
-              <Link to="/Login">
-                <button className="btn">Login</button>
-              </Link>
-            </li>
-            <li>
-              <Link to="/Register">
-                <button className="btn">Register</button>
-              </Link>
-            </li>
+          <ul className="ul space-y-4">
+            <li><Menu name={'Overview'} path={'/'}></Menu></li>
+            <li><Menu name={'Transactions'} path={'/Transactions'}></Menu></li>
           </ul>
         </div>
       </div>
