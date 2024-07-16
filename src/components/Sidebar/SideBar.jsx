@@ -20,8 +20,7 @@ const SideBar = ({ isOpen }) => {
       <div className="">
         <div className="flex justify-center">
           <Link to="/" className="">
-            {/* <img src="" alt="" className=" w-24 lg:w-32" /> */}
-            <h1>ShareWithTheir</h1>
+            <img src="https://i.ibb.co/S7tR0vT/logo-3.png" alt="" className=" w-24 lg:w-32" />
           </Link>
         </div>
         <div className="menu">
