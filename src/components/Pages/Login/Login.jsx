@@ -1,18 +1,64 @@
 import { LuEyeOff } from "react-icons/lu";
 import { FiEye } from "react-icons/fi";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState("");
+  const axiosPublic = useAxiosPublic();
+  const {user,setUser} = useAuth();
+  const navigate = useNavigate();
+  console.log(user);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+
     const form = e.target;
     const emailOrPhone = form.emailOrPhone.value;
-    const password = form.password.value;
+    const pin = form.pin.value;
+    const info = { emailOrPhone, pin };
 
-    console.log(emailOrPhone, password);
+    //verify the pin
+    const pinRegex = /^\d{5}$/;
+    if (!pinRegex.test(pin)) {
+      setError("PIN must be a 5-digit number");
+      return;
+    }
+
+    //query for login in database
+    try {
+      const { data } = await axiosPublic.post("login", info);
+      if(data?.user){
+        setUser(data?.user);
+      };
+      if (data.token) {
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        localStorage.setItem("Token", data.token);
+      }
+      form.reset();
+      //   navigate("/Login");
+    } catch (error) {
+      Swal.fire({
+        position: "top",
+        icon: "warning",
+        title: error?.response?.data?.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // console.log(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -57,14 +103,14 @@ const Login = () => {
 
             <div className="form-control">
               <span className="my-2 block mb-2 text-sm font-medium text-white">
-                Password
+                PIN
               </span>
               <label className="input w-full input-bordered flex items-center gap-2">
                 <input
                   type={showPass ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder="PIN"
                   className="grow"
-                  name="password"
+                  name="pin"
                   required
                 />
                 <div className="badge">
@@ -73,7 +119,7 @@ const Login = () => {
                   </span>
                 </div>
               </label>
-              {/* <p className="text-red-600">{error}</p> */}
+              <p className="text-red-400">{error}</p>
             </div>
             <div className="mt-6">
               <input
