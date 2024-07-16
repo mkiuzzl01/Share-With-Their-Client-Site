@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import { BiLogOutCircle } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const SideBar = ({ isOpen }) => {
-
-  const handleLogOut = async () => {
-    
+  const navigate = useNavigate();
+  
+  const handleLogOut = () => {
+    localStorage.removeItem("Token");
+    navigate("/Login");
   };
 
   return (
@@ -15,29 +17,29 @@ const SideBar = ({ isOpen }) => {
       }  md:translate-x-0  transition duration-200 ease-in-out`}
     >
       <div className="">
-      <div className="flex justify-center"><Link to="/" className="">
+        <div className="flex justify-center">
+          <Link to="/" className="">
             {/* <img src="" alt="" className=" w-24 lg:w-32" /> */}
             <h1>ShareWithTheir</h1>
-          </Link></div>
+          </Link>
+        </div>
         <div className="menu">
-          <ul className="ul space-y-2">
-           {/*todo link */}
-          </ul>
+          <ul className="ul space-y-2">{/*todo link */}</ul>
         </div>
         <div className="divider divider-accent">OR</div>
         <div className="menu">
           <ul className="ul space-y-3">
             {/* todo manu */}
-           <li>
-           <button className="btn">
-            <Link to='/Login'>Login</Link>
-            </button>
-           </li>
-           <li>
-           <button className="btn">
-            <Link to='/Register'>Register</Link>
-            </button>
-           </li>
+            <li>
+              <Link to="/Login">
+                <button className="btn">Login</button>
+              </Link>
+            </li>
+            <li>
+              <Link to="/Register">
+                <button className="btn">Register</button>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -46,7 +48,7 @@ const SideBar = ({ isOpen }) => {
           <ul>
             <li>
               <button onClick={handleLogOut} className="btn btn-sm">
-              <BiLogOutCircle className="text-2xl text-red-600" /> LogOut
+                <BiLogOutCircle className="text-2xl text-red-600" /> LogOut
               </button>
             </li>
           </ul>

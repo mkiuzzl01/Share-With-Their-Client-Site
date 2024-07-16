@@ -1,7 +1,7 @@
 import { LuEyeOff } from "react-icons/lu";
 import { FiEye } from "react-icons/fi";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
@@ -10,9 +10,10 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const axiosPublic = useAxiosPublic();
-  const {user,setUser} = useAuth();
+  const {setUser} = useAuth();
   const navigate = useNavigate();
-  console.log(user);
+  const location = useLocation();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -48,7 +49,7 @@ const Login = () => {
         localStorage.setItem("Token", data.token);
       }
       form.reset();
-      //   navigate("/Login");
+      navigate("/");
     } catch (error) {
       Swal.fire({
         position: "top",
