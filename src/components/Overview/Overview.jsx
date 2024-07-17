@@ -9,7 +9,6 @@ const Overview = () => {
         <h1 className="mt-2 text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">
           <span>{user?.Role}</span> Profile
         </h1>
-
         <main className="relative z-20 w-full mt-8 md:flex md:items-center xl:mt-12">
           <div className="absolute w-full bg-blue-600 -z-10 md:h-80 rounded-2xl"></div>
 

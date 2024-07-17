@@ -1,11 +1,49 @@
-import React from 'react';
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Transactions = () => {
-    return (
-        <div>
-            <h1>This is Transactions page</h1>
-        </div>
-    );
+  const axiosPublic = useAxiosPublic();
+  const { data:History = [] } = useQuery({
+    queryKey: ["transaction"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/Transaction");
+      return res.data;
+    },
+  });
+//   console.log(History);
+  return (
+    <div>
+      <div className="overflow-x-auto">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th></th>
+              <th>Sender Name</th>
+              <th>Sender Email</th>
+              <th>Sender Phone</th>
+              <th>Sended Amount</th>
+              <th>Sended Fee</th>
+              <th>Sended Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+            History.map((h,idx)=><tr key={idx} className="bg-base-200">
+            <th>{idx+1}</th>
+            <td>{h.Sender?.Name}</td>
+            <td>{h.Sender?.Email}</td>
+            <td>{h.Sender?.Phone}</td>
+            <td>{h.Sender?.Sended_Amount}</td>
+            <td>{h.Sender?.Fee}</td>
+            <td>{h.Sender?.time}</td>
+          </tr>)
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default Transactions;
