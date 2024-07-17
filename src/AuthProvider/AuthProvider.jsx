@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createContext } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { jwtDecode } from "jwt-decode";
-import { Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export const AuthContext = createContext(null);
 
@@ -17,7 +17,6 @@ const AuthProvider = ({ children }) => {
     } else {
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded);
         getUser(decoded.emailOrPhone);
       } catch (error) {
         console.error("Error decoding token:", error);

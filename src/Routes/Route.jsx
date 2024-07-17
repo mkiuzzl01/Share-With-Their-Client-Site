@@ -8,6 +8,7 @@ import Transactions from "../components/Pages/Transactions/Transactions";
 import SendMoney from "../components/SendMoney/SendMoney";
 import CashOut from "../components/CashOut/CashOut";
 import CashIn from "../components/CashIn/CashIn";
+import Transaction_Management from "../components/Pages/Transaction_Management/Transaction_Management";
 
 const route = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const route = createBrowserRouter([
         {
             path:'/CashIn',
             element:<PrivateRoute><CashIn></CashIn></PrivateRoute>
+        },
+        {
+            path:'/Transaction_Management',
+            element:<PrivateRoute><Transaction_Management></Transaction_Management></PrivateRoute>
         },
         {
             path:'/Login',

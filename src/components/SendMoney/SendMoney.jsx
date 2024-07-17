@@ -20,8 +20,6 @@ const SendMoney = () => {
     const pin = form.pin.value;
     const info = { user, receiver, amount, pin };
 
-    console.log(info);
-
     try {
       const { data } = await axiosPublic.post("/send-money", info);
       console.log(data);
@@ -33,6 +31,7 @@ const SendMoney = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        form.reset();
       }
     } catch (error) {
       Swal.fire({

@@ -28,6 +28,7 @@ const SideBar = ({ isOpen }) => {
           <li><Menu name={'Send Money'} path={'/SendMoney'}></Menu></li>
           <li><Menu name={'Cash Out'} path={'/CashOut'}></Menu></li>
           <li><Menu name={'Cash In'} path={'/CashIn'}></Menu></li>
+          <li><Menu name={'Transaction Management'} path={'/Transaction_Management'}></Menu></li>
           </ul>
         </div>
         <div className="divider divider-accent">OR</div>

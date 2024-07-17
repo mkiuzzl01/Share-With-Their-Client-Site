@@ -1,16 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAuth from "../../../hooks/useAuth";
 
 const Transactions = () => {
+    const {user} = useAuth();    
   const axiosPublic = useAxiosPublic();
+
+  
   const { data:History = [] } = useQuery({
     queryKey: ["transaction"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/Transaction");
+      const res = await axiosPublic.get(`/Transaction/${user?.Email}`);
       return res.data;
     },
   });
-//   console.log(History);
+  console.log(History);
   return (
     <div>
       <div className="overflow-x-auto">
@@ -31,12 +35,12 @@ const Transactions = () => {
             {
             History.map((h,idx)=><tr key={idx} className="bg-base-200">
             <th>{idx+1}</th>
-            <td>{h.Sender?.Name}</td>
-            <td>{h.Sender?.Email}</td>
-            <td>{h.Sender?.Phone}</td>
-            <td>{h.Sender?.Sended_Amount}</td>
+            <td>{h.Receiver?.Name}</td>
+            <td>{h.Receiver?.Email}</td>
+            <td>{h.Receiver?.Phone}</td>
+            <td>{h.Receiver?.Received_Amount}</td>
             <td>{h.Sender?.Fee}</td>
-            <td>{h.Sender?.time}</td>
+            <td>{h.Receiver?.time}</td>
           </tr>)
             }
           </tbody>
