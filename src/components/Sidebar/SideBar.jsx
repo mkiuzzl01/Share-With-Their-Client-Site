@@ -24,7 +24,11 @@ const SideBar = ({ isOpen }) => {
           </Link>
         </div>
         <div className="menu">
-          <ul className="ul space-y-2">{/*todo link */}</ul>
+          <ul className="ul space-y-2">
+          <li><Menu name={'Send Money'} path={'/SendMoney'}></Menu></li>
+          <li><Menu name={'Cash Out'} path={'/CashOut'}></Menu></li>
+          <li><Menu name={'Cash In'} path={'/CashIn'}></Menu></li>
+          </ul>
         </div>
         <div className="divider divider-accent">OR</div>
         <div className="menu">

@@ -5,6 +5,9 @@ import Register from "../components/Pages/Register/Register";
 import PrivateRoute from '../Routes/PrivateRoute'
 import Overview from "../components/Overview/Overview";
 import Transactions from "../components/Pages/Transactions/Transactions";
+import SendMoney from "../components/SendMoney/SendMoney";
+import CashOut from "../components/CashOut/CashOut";
+import CashIn from "../components/CashIn/CashIn";
 
 const route = createBrowserRouter([
     {
@@ -20,8 +23,16 @@ const route = createBrowserRouter([
             element:<PrivateRoute><Transactions></Transactions></PrivateRoute>
         },
         {
-            path:'/Transactions',
-            element:<PrivateRoute><Transactions></Transactions></PrivateRoute>
+            path:'/SendMoney',
+            element:<PrivateRoute><SendMoney></SendMoney></PrivateRoute>
+        },
+        {
+            path:'/CashOut',
+            element:<PrivateRoute><CashOut></CashOut></PrivateRoute>
+        },
+        {
+            path:'/CashIn',
+            element:<PrivateRoute><CashIn></CashIn></PrivateRoute>
         },
         {
             path:'/Login',

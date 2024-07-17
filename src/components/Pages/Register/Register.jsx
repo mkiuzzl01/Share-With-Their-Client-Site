@@ -21,7 +21,8 @@ const Register = () => {
         const pin = form.pin.value;
         const status = 'pending';
         const balance = 0;
-        const userInfo = {name,email,phone,pin,status,balance};
+        const role = 'User'
+        const userInfo = {name,email,phone,pin,status,role,balance};
 
         //pin validation
         const pinRegex = /^\d{5}$/;
