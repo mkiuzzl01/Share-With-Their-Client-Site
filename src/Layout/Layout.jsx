@@ -12,7 +12,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="max-w-screen-xl m-auto">
+    <div className="m-auto">
       <div className="relative min-h-screen md:flex">
         {/* This is NavLink part  */}
         <SideBar isOpen={isOpen} toggleMenu={toggleMenu}></SideBar>

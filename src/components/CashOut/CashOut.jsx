@@ -30,7 +30,7 @@ const CashOut = () => {
           timer: 1500,
         });
         form.reset();
-    }
+      }
     } catch (error) {
       Swal.fire({
         position: "top",
@@ -42,59 +42,77 @@ const CashOut = () => {
     }
   };
   return (
-    <div className="max-w-lg m-auto mt-20">
-      <h1 className="text-2xl text-center font-semibold mb-10">Cash Out</h1>
-      <form
-        onSubmit={handleCashOut}
-        className="space-y-4 border-2 p-10 rounded-lg"
-      >
-        <div className="flex items-center">
-          <label htmlFor="receiver" className="px-4">
-            <span>Agent</span>
-          </label>
-          <input
-            required
-            type="tel"
-            id="receiver"
-            name="receiver"
-            placeholder="Agent Number"
-            className="input input-bordered w-full"
-          />
-        </div>
-        <div className="flex items-center">
-          <label htmlFor="amount" className="px-2">
-            <span>Amount</span>
-          </label>
-          <input
-            required
-            type="number"
-            id="amount"
-            name="amount"
-            placeholder="Amount"
-            className="input input-bordered w-full"
-          />
-        </div>
-        <div className="flex items-center">
-          <span className="px-6">PIN</span>
-          <label className="input w-full input-bordered flex items-center gap-2">
-            <input
-              type={showPass ? "text" : "password"}
-              placeholder="PIN"
-              className="w-full"
-              name="pin"
-              required
-            />
-            <div className="badge">
-              <span onClick={() => setShowPass(!showPass)}>
-                {showPass ? <LuEyeOff /> : <FiEye />}
-              </span>
+    <div>
+      {user?.Status === "Approved" && (
+        <div className="max-w-lg m-auto mt-20">
+          <h1 className="text-2xl text-center font-semibold mb-10">Cash Out</h1>
+          <form
+            onSubmit={handleCashOut}
+            className="space-y-4 border-2 p-10 rounded-lg"
+          >
+            <div className="flex items-center">
+              <label htmlFor="receiver" className="px-4">
+                <span>Agent</span>
+              </label>
+              <input
+                required
+                type="tel"
+                id="receiver"
+                name="receiver"
+                placeholder="Agent Number"
+                className="input input-bordered w-full"
+              />
             </div>
-          </label>
+            <div className="flex items-center">
+              <label htmlFor="amount" className="px-2">
+                <span>Amount</span>
+              </label>
+              <input
+                required
+                type="number"
+                id="amount"
+                name="amount"
+                placeholder="Amount"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="flex items-center">
+              <span className="px-6">PIN</span>
+              <label className="input w-full input-bordered flex items-center gap-2">
+                <input
+                  type={showPass ? "text" : "password"}
+                  placeholder="PIN"
+                  className="w-full"
+                  name="pin"
+                  required
+                />
+                <div className="badge">
+                  <span onClick={() => setShowPass(!showPass)}>
+                    {showPass ? <LuEyeOff /> : <FiEye />}
+                  </span>
+                </div>
+              </label>
+            </div>
+            <div className="flex justify-center items-center">
+              <input type="submit" value="Send" className="btn w-48" />
+            </div>
+          </form>
         </div>
-        <div className="flex justify-center items-center">
-          <input type="submit" value="Send" className="btn w-48" />
-        </div>
-      </form>
+      )}
+
+      <div className="flex flex-col items-center justify-center mt-10">
+        <p className="font-bold text-4xl">
+          Your Status{" "}
+          <span
+            className={
+              user?.Status === "pending" ? "text-yellow-600" : "text-red-500"
+            }
+          >
+            {user?.Status}
+          </span>
+        </p>
+        <p className="text-3xl">Please wait for admin approval!</p>
+      </div>
     </div>
   );
 };

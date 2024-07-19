@@ -30,10 +30,13 @@ const Overview = () => {
                 <p className="leading-relaxed text-blue-200">
                   Phone: <span>{user?.Phone}</span>
                 </p>
+                <p className="leading-relaxed text-blue-200">
+                  Status: <span>{user?.Status}</span>
+                </p>
               </div>
               <h4 className="text-xl font-semibold text-yellow-200">
                 Current Balance:{" "}
-                <span className="text-white">{user?.Balance}</span>
+                <span className="text-orange-300">{user?.Balance}</span>
               </h4>
             </div>
           </div>

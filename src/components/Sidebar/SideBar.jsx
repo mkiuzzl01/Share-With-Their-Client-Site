@@ -2,10 +2,12 @@ import PropTypes from "prop-types";
 import { BiLogOutCircle } from "react-icons/bi";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Menu from "../Share/Menu";
+import useUserVerification from "../../hooks/useUserVerification";
 
 const SideBar = ({ isOpen }) => {
   const navigate = useNavigate();
-   
+  const Role = useUserVerification();
+
   const handleLogOut = () => {
     localStorage.removeItem("Token");
     navigate("/Login");
@@ -20,22 +22,61 @@ const SideBar = ({ isOpen }) => {
       <div className="">
         <div className="flex justify-center">
           <Link to="/" className="">
-            <img src="https://i.ibb.co/S7tR0vT/logo-3.png" alt="" className=" w-24 lg:w-32" />
+            <img
+              src="https://i.ibb.co/S7tR0vT/logo-3.png"
+              alt=""
+              className=" w-24 lg:w-32"
+            />
           </Link>
         </div>
         <div className="menu">
           <ul className="ul space-y-2">
-          <li><Menu name={'Send Money'} path={'/SendMoney'}></Menu></li>
-          <li><Menu name={'Cash Out'} path={'/CashOut'}></Menu></li>
-          <li><Menu name={'Cash In'} path={'/CashIn'}></Menu></li>
-          <li><Menu name={'Transaction Management'} path={'/Transaction_Management'}></Menu></li>
+            {Role === "User" && (
+              <>
+                <li>
+                  <Menu name={"Send Money"} path={"/SendMoney"}></Menu>
+                </li>
+                <li>
+                  <Menu name={"Cash Out"} path={"/CashOut"}></Menu>
+                </li>
+                <li>
+                  <Menu name={"Cash In"} path={"/CashIn"}></Menu>
+                </li>
+              </>
+            )}
+            {Role === "Agent" && (
+              <>
+                <li>
+                  <Menu
+                    name={"Transaction Management"}
+                    path={"/Transaction_Management"}
+                  ></Menu>
+                </li>
+              </>
+            )}
+            {
+              Role === "Admin" && <>
+              <li><Menu
+              name={"User Management"}
+              path={"User_Management"}
+              ></Menu></li>
+              <li><Menu
+              name={"System Monitoring"}
+              path={"System_Monitoring"}
+              ></Menu></li>
+              </>
+            }
           </ul>
         </div>
         <div className="divider divider-accent">OR</div>
         <div className="menu">
           <ul className="ul space-y-4">
-            <li><Menu name={'Overview'} path={'/'}></Menu></li>
-            <li><Menu name={'Transactions'} path={'/Transactions'}></Menu></li>
+            <li>
+              <Menu name={"Overview"} path={"/"}></Menu>
+            </li>
+            <li>
+              <Menu name={"Transactions"} path={"/Transactions"}></Menu>
+            </li>
           </ul>
         </div>
       </div>

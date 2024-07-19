@@ -9,6 +9,8 @@ import SendMoney from "../components/SendMoney/SendMoney";
 import CashOut from "../components/CashOut/CashOut";
 import CashIn from "../components/CashIn/CashIn";
 import Transaction_Management from "../components/Pages/Transaction_Management/Transaction_Management";
+import User_Management from "../components/Pages/User_Management/User_Management";
+import System_Monitoring from "../components/Pages/System_Monitoring/System_Monitoring";
 
 const route = createBrowserRouter([
   {
@@ -60,6 +62,22 @@ const route = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Transaction_Management></Transaction_Management>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/User_Management",
+        element: (
+          <PrivateRoute>
+            <User_Management></User_Management>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/System_Monitoring",
+        element: (
+          <PrivateRoute>
+            <System_Monitoring></System_Monitoring>
           </PrivateRoute>
         ),
       },
