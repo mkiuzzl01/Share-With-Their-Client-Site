@@ -1,16 +1,14 @@
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { LuEyeOff } from "react-icons/lu";
 import { FiEye } from "react-icons/fi";
 import { useState } from "react";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendMoney = () => {
   const { user } = useAuth();
   const [showPass, setShowPass] = useState(false);
-  //   const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
   const handleSendMoney = async (e) => {
     e.preventDefault();
@@ -21,7 +19,7 @@ const SendMoney = () => {
     const info = { user, receiver, amount, pin };
 
     try {
-      const { data } = await axiosPublic.post("/send-money", info);
+      const { data } = await axiosSecure.post("/send-money", info);
       console.log(data);
       if (data.message === "Transaction successful") {
         Swal.fire({
@@ -46,14 +44,14 @@ const SendMoney = () => {
 
   return (
     <div>
-      {user?.Status === "Approved" && (
+      {user?.Status === "Approved" ? (
         <div className="max-w-lg m-auto mt-20">
           <h1 className="text-2xl text-center font-semibold mb-10">
             Send Money
           </h1>
           <form
             onSubmit={handleSendMoney}
-            className="space-y-4 border-2 p-10 rounded-lg"
+            className="space-y-4 border-2 p-10 rounded-lg bg-green-200 border-sky-300"
           >
             <div className="flex items-center">
               <label htmlFor="receiver" className="px-2">
@@ -96,17 +94,26 @@ const SendMoney = () => {
                 </div>
               </label>
             </div>
-            <div className="flex justify-center items-center">
-              <input type="submit" value="Send" className="btn w-48" />
+            <div className="flex justify-end">
+              <input type="submit" value="Send" className="btn w-[239px] md:w-[357px]" />
             </div>
           </form>
         </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center mt-10">
+          <p className="font-bold text-4xl">
+            Your Status{" "}
+            <span
+              className={
+                user?.Status === "pending" ? "text-yellow-600" : "text-red-500"
+              }
+            >
+              {user?.Status}
+            </span>
+          </p>
+          <p className="text-3xl">Please wait for admin approval!</p>
+        </div>
       )}
-
-      <div className="flex flex-col items-center justify-center mt-10">
-        <p className="font-bold text-4xl">Your Status <span className={user?.Status === "pending"?'text-yellow-600':'text-red-500'}>{user?.Status}</span></p>
-        <p className="text-3xl">Please wait for admin approval!</p>
-      </div>
     </div>
   );
 };

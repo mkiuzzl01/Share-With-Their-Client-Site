@@ -49,7 +49,7 @@ const Register = () => {
       Swal.fire({
         position: "top",
         icon: "warning",
-        title: error?.message,
+        title: error?.response?.data?.message,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -58,8 +58,8 @@ const Register = () => {
   };
 
   return (
-    <div className="my-4">
-      <div className="flex items-center w-full  mx-auto overflow-hidden rounded-lg lg:max-w-6xl p-10 bg-gray-600">
+    <div className="h-screen flex justify-center items-center mx-2">
+      <div className="flex items-center w-full  mx-auto overflow-hidden rounded-lg lg:max-w-6xl bg-gray-600">
         <div className="hidden bg-cover lg:block lg:w-2/6">
           <img
             src="https://i.postimg.cc/wM4LPS2d/istockphoto-1408025598-612x612.png"
@@ -67,14 +67,14 @@ const Register = () => {
           />
         </div>
 
-        <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
+        <div className="w-full px-6 py-8  lg:w-1/2">
           <div className="flex justify-center mx-auto"></div>
 
-          <p className="mt-3 text-4xl font-bold text-center text-white">
+          <p className="text-4xl font-bold text-center text-white">
             Registration
           </p>
 
-          <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center justify-between py-2">
             <span className="w-1/6 border-b dark:border-gray-400"></span>
 
             <span className="text-sm text-center text-gray-100 uppercase dark:text-gray-400 hover:underline">

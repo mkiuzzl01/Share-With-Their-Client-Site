@@ -11,6 +11,9 @@ import CashIn from "../components/CashIn/CashIn";
 import Transaction_Management from "../components/Pages/Transaction_Management/Transaction_Management";
 import User_Management from "../components/Pages/User_Management/User_Management";
 import System_Monitoring from "../components/Pages/System_Monitoring/System_Monitoring";
+import IsAdmin from "./IsAdmin";
+import IsAgent from "./IsAgent";
+import IsUser from "./IsUser";
 
 const route = createBrowserRouter([
   {
@@ -36,49 +39,61 @@ const route = createBrowserRouter([
       {
         path: "/SendMoney",
         element: (
-          <PrivateRoute>
-            <SendMoney></SendMoney>
-          </PrivateRoute>
+          <IsUser>
+            <PrivateRoute>
+              <SendMoney></SendMoney>
+            </PrivateRoute>
+          </IsUser>
         ),
       },
       {
         path: "/CashOut",
         element: (
-          <PrivateRoute>
-            <CashOut></CashOut>
-          </PrivateRoute>
+          <IsUser>
+            <PrivateRoute>
+              <CashOut></CashOut>
+            </PrivateRoute>
+          </IsUser>
         ),
       },
       {
         path: "/CashIn",
         element: (
-          <PrivateRoute>
-            <CashIn></CashIn>
-          </PrivateRoute>
+          <IsUser>
+            <PrivateRoute>
+              <CashIn></CashIn>
+            </PrivateRoute>
+          </IsUser>
         ),
       },
       {
         path: "/Transaction_Management",
         element: (
-          <PrivateRoute>
-            <Transaction_Management></Transaction_Management>
-          </PrivateRoute>
+          <IsAgent>
+            <PrivateRoute>
+              <Transaction_Management></Transaction_Management>
+            </PrivateRoute>
+          </IsAgent>
         ),
       },
       {
         path: "/User_Management",
         element: (
-          <PrivateRoute>
-            <User_Management></User_Management>
-          </PrivateRoute>
+          <IsAdmin>
+            <PrivateRoute>
+              <User_Management></User_Management>
+            </PrivateRoute>
+          </IsAdmin>
         ),
       },
       {
         path: "/System_Monitoring",
         element: (
-          <PrivateRoute>
-            <System_Monitoring></System_Monitoring>
-          </PrivateRoute>
+          <IsAdmin>
+            <PrivateRoute>
+              <System_Monitoring></System_Monitoring>
+            </PrivateRoute>
+          </IsAdmin>
         ),
       },
     ],

@@ -1,17 +1,17 @@
 import React, { useEffect, useState, createContext } from "react";
-import useAxiosPublic from "../hooks/useAxiosPublic";
 import { jwtDecode } from "jwt-decode";
 import { Navigate } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
+  const token = localStorage.getItem("Token");
   useEffect(() => {
-    const token = localStorage.getItem("Token");
     if (!token) {
       LogOut();
     } else {
@@ -22,11 +22,11 @@ const AuthProvider = ({ children }) => {
         console.error("Error decoding token:", error);
       }
     }
-  }, []);
+  }, [token]);
 
   const getUser = async (emailOrPhone) => {
     try {
-      const { data } = await axiosPublic.get(`/user/${emailOrPhone}`);
+      const { data } = await axiosSecure.get(`/user/${emailOrPhone}`);
       setUser(data);
       setLoading(false);
     } catch (error) {
@@ -43,6 +43,7 @@ const AuthProvider = ({ children }) => {
   const shareTools = {
     setUser,
     LogOut,
+    setLoading,
     user,
     loading,
   };

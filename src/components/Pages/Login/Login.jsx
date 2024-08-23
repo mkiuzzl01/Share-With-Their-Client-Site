@@ -12,7 +12,6 @@ const Login = () => {
   const axiosPublic = useAxiosPublic();
   const {setUser} = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
 
   const handleLogin = async (e) => {
@@ -63,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <div className="my-4">
+    <div className="h-screen flex items-center mx-2">
       <div className="flex items-center w-full  mx-auto overflow-hidden rounded-lg lg:max-w-6xl p-10 bg-gray-600">
         <div className="hidden bg-cover lg:block lg:w-2/6">
           <img src="https://i.postimg.cc/GhwPnQ3G/login.png" alt="" />
@@ -136,7 +135,7 @@ const Login = () => {
             <div className="border-2 p-2">
               <p className="text-sm text-white">
                 Don't have an account?
-                <Link to="/Register" className="text-green-300">
+                <Link to="/Register" className="text-green-300 ms-2">
                   Create One
                 </Link>
               </p>

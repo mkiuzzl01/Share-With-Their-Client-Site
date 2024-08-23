@@ -1,14 +1,14 @@
 import { LuEyeOff } from "react-icons/lu";
 import { FiEye } from "react-icons/fi";
 import { useState } from "react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const CashIn = () => {
   const [showPass, setShowPass] = useState(false);
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const handleCashIn = async (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const CashIn = () => {
     console.log(info);
 
     try {
-      const { data } = await axiosPublic.post("/cash-in", info);
+      const { data } = await axiosSecure.post("/cash-in", info);
       if (data.message === "Request send successful") {
         Swal.fire({
           position: "top",
@@ -43,12 +43,12 @@ const CashIn = () => {
   };
   return (
     <div>
-      {user?.Status === "Approved" && (
+      {user?.Status === "Approved" ? (
         <div className="max-w-lg m-auto mt-20">
           <h1 className="text-2xl text-center font-semibold mb-10">Cash In</h1>
           <form
             onSubmit={handleCashIn}
-            className="space-y-4 border-2 p-10 rounded-lg"
+            className="space-y-4 border-2 border-blue-300  p-10 rounded-lg bg-fuchsia-200"
           >
             <div className="flex items-center">
               <label htmlFor="Agent" className="px-4">
@@ -60,7 +60,7 @@ const CashIn = () => {
                 id="Agent"
                 name="agent"
                 placeholder="Agent Number"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full "
               />
             </div>
 
@@ -94,25 +94,26 @@ const CashIn = () => {
                 </div>
               </label>
             </div>
-            <div className="flex justify-center items-center">
-              <input type="submit" value="Request" className="btn w-48" />
+            <div className="flex justify-end">
+              <input type="submit" value="Request" className="btn w-[239px] md:w-[357px]"/>
             </div>
           </form>
         </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center mt-10">
+          <p className="font-bold text-4xl">
+            Your Status{" "}
+            <span
+              className={
+                user?.Status === "pending" ? "text-yellow-600" : "text-red-500"
+              }
+            >
+              {user?.Status}
+            </span>
+          </p>
+          <p className="text-3xl">Please wait for admin approval!</p>
+        </div>
       )}
-      <div className="flex flex-col items-center justify-center mt-10">
-        <p className="font-bold text-4xl">
-          Your Status{" "}
-          <span
-            className={
-              user?.Status === "pending" ? "text-yellow-600" : "text-red-500"
-            }
-          >
-            {user?.Status}
-          </span>
-        </p>
-        <p className="text-3xl">Please wait for admin approval!</p>
-      </div>
     </div>
   );
 };

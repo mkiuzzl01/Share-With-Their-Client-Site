@@ -1,13 +1,13 @@
 import { LuEyeOff } from "react-icons/lu";
 import { FiEye } from "react-icons/fi";
 import { useState } from "react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const CashOut = () => {
   const [showPass, setShowPass] = useState(false);
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
   const handleCashOut = async (e) => {
@@ -20,7 +20,7 @@ const CashOut = () => {
     console.log(info);
 
     try {
-      const { data } = await axiosPublic.post("/cash-out", info);
+      const { data } = await axiosSecure.post("/cash-out", info);
       if (data.message === "Cash out request successful") {
         Swal.fire({
           position: "top",
@@ -43,12 +43,12 @@ const CashOut = () => {
   };
   return (
     <div>
-      {user?.Status === "Approved" && (
+      {user?.Status === "Approved" ? (
         <div className="max-w-lg m-auto mt-20">
           <h1 className="text-2xl text-center font-semibold mb-10">Cash Out</h1>
           <form
             onSubmit={handleCashOut}
-            className="space-y-4 border-2 p-10 rounded-lg"
+            className="space-y-4 border-2 p-10 rounded-lg bg-sky-200 border-fuchsia-300"
           >
             <div className="flex items-center">
               <label htmlFor="receiver" className="px-4">
@@ -93,26 +93,26 @@ const CashOut = () => {
                 </div>
               </label>
             </div>
-            <div className="flex justify-center items-center">
-              <input type="submit" value="Send" className="btn w-48" />
+            <div className="flex justify-end">
+              <input type="submit" value="Send" className="btn w-[239px] md:w-[357px]" />
             </div>
           </form>
         </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center mt-10">
+          <p className="font-bold text-4xl">
+            Your Status{" "}
+            <span
+              className={
+                user?.Status === "pending" ? "text-yellow-600" : "text-red-500"
+              }
+            >
+              {user?.Status}
+            </span>
+          </p>
+          <p className="text-3xl">Please wait for admin approval!</p>
+        </div>
       )}
-
-      <div className="flex flex-col items-center justify-center mt-10">
-        <p className="font-bold text-4xl">
-          Your Status{" "}
-          <span
-            className={
-              user?.Status === "pending" ? "text-yellow-600" : "text-red-500"
-            }
-          >
-            {user?.Status}
-          </span>
-        </p>
-        <p className="text-3xl">Please wait for admin approval!</p>
-      </div>
     </div>
   );
 };

@@ -1,17 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import Loading from "../Loading/Loading";
 
 const User_Management = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: users = [], refetch } = useQuery({
+  const { data: users = [], refetch,isLoading } = useQuery({
     queryKey: ["user-management"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
       return res.data;
     },
   });
+
+  if(isLoading) return <Loading></Loading>;
 
   const handleApprove = async (id) => {
     try {
