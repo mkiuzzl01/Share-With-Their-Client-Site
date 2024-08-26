@@ -63,7 +63,7 @@ const Login = () => {
 
   return (
     <div className="h-screen flex items-center mx-2">
-      <div className="flex items-center w-full  mx-auto overflow-hidden rounded-lg lg:max-w-6xl p-10 bg-gray-600">
+      <div className="flex items-center w-full  mx-auto overflow-hidden rounded-lg lg:max-w-6xl bg-gray-600">
         <div className="hidden bg-cover lg:block lg:w-2/6">
           <img src="https://i.postimg.cc/GhwPnQ3G/login.png" alt="" />
         </div>
